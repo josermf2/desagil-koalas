@@ -15,15 +15,20 @@ public class DataFrame {
 	public void addColumn(String label, List<Double> values) {
 		this.columns.put(label, new ArrayList<>(values));
 	}
-
-	public double min(String label) {
+	
+	private void verificaErro(String label, List<Double> values) {
 		if (!this.columns.containsKey(label)) {
 			throw new DataFrameException("Column " + label + " is invalid!");
 		}
-		List<Double> values = this.columns.get(label);
 		if (values.size() == 0) {
 			throw new DataFrameException("Column " + label + " is empty!");
 		}
+	}
+
+	public double min(String label) {
+		List<Double> values = this.columns.get(label);
+
+		verificaErro(label, values);
 
 		double m = Double.POSITIVE_INFINITY;
 		for (double value: values) {
@@ -35,13 +40,9 @@ public class DataFrame {
 	}
 
 	public double max(String label) {
-		if (!this.columns.containsKey(label)) {
-			throw new DataFrameException("Column " + label + " is invalid!");
-		}
 		List<Double> values = this.columns.get(label);
-		if (values.size() == 0) {
-			throw new DataFrameException("Column " + label + " is empty!");
-		}
+
+		verificaErro(label, values);
 
 		double m = Double.NEGATIVE_INFINITY;
 		for (double value: values) {
@@ -53,13 +54,9 @@ public class DataFrame {
 	}
 
 	public double sum(String label) {
-		if (!this.columns.containsKey(label)) {
-			throw new DataFrameException("Column " + label + " is invalid!");
-		}
 		List<Double> values = this.columns.get(label);
-		if (values.size() == 0) {
-			throw new DataFrameException("Column " + label + " is empty!");
-		}
+
+		verificaErro(label, values);
 
 		double s = 0;
 		for (double value: values) {
@@ -69,13 +66,9 @@ public class DataFrame {
 	}
 
 	public double avg(String label) {
-		if (!this.columns.containsKey(label)) {
-			throw new DataFrameException("Column " + label + " is invalid!");
-		}
 		List<Double> values = this.columns.get(label);
-		if (values.size() == 0) {
-			throw new DataFrameException("Column " + label + " is empty!");
-		}
+
+		verificaErro(label, values);
 
 		double s = 0;
 		for (double value: values) {
@@ -85,13 +78,9 @@ public class DataFrame {
 	}
 
 	public double var(String label) {
-		if (!this.columns.containsKey(label)) {
-			throw new DataFrameException("Column " + label + " is invalid!");
-		}
 		List<Double> values = this.columns.get(label);
-		if (values.size() == 0) {
-			throw new DataFrameException("Column " + label + " is empty!");
-		}
+
+		verificaErro(label, values);
 
 		double s;
 
@@ -109,13 +98,9 @@ public class DataFrame {
 	}
 
 	public double std(String label) {
-		if (!this.columns.containsKey(label)) {
-			throw new DataFrameException("Column " + label + " is invalid!");
-		}
 		List<Double> values = this.columns.get(label);
-		if (values.size() == 0) {
-			throw new DataFrameException("Column " + label + " is empty!");
-		}
+
+		verificaErro(label, values);
 
 		double s, m;
 
